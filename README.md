@@ -10,7 +10,7 @@ The code to make the figures is in several Jupyter notebooks, all written in pyt
 The code to instantiate, train and use Restricted Boltzmann Machines exploits the packages provided with [Jerome Tubiana's repository](https://github.com/jertubiana/PGM). The first cell of each notebook uses [`GitPython`](https://github.com/gitpython-developers/GitPython) to clone locally this repository. 
 
 ## Repository structure:
-
+The notebooks to make the figures are in the main directory.
 
 ## Contacts:
 For comments or question, feel free to [contact me](mailto:andrea.dgioacchino@gmail.com).
