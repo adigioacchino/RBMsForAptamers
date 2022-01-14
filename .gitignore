@@ -1,0 +1,11 @@
+# Jupyter Notebook checkpoint folder
+.ipynb_checkpoints
+
+# Data folder - data must be downloaded from Zenodo
+data
+
+# folder where re-trained RBMs are saved by default
+RBM_retrained
+
+# folder where PGM is cloned by default
+PGM
