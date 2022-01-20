@@ -625,6 +625,11 @@ if __name__ == "__main__":
     ## Debugging
     # con = {'lr': 1e-3, 'dr': 0.1, 'batch_size': 1, 'datatype': 'HGCLT', 'distance_cutoff': 2.}
     # model = SiameseClassifier(con, outputs=2)
+    #
+    ## pytorch lightning loop
+    # sn = SiameseClassifier(con, outputs=2)
+    # plt = pl.Trainer(max_epochs=1, gpus=1)
+    # plt.fit(sn)
 
     ## Single Loop Debugging
 
@@ -636,12 +641,3 @@ if __name__ == "__main__":
     #     else:
     #         model.training_step(batch, i)
     #         model.validation_step(batch, i)
-
-
-    # pytorch lightning loop
-    # sn = SiameseClassifier(con, outputs=2)
-    # plt = pl.Trainer(max_epochs=1, gpus=1)
-    # plt.fit(sn)
-
-
-

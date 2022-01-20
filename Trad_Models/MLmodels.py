@@ -204,47 +204,58 @@ def get_rawdata(type, countcutoff, n_copies, round=8, outputnum=2, seed=69):
     '''
 
     # path to data, this works for pytorch lightning loops, but not for raytune
-    rel_path = "../data/"
+    data_path = "../data/"
+    helper_path = "../DNN_helper_files/"
 
     # FOR RAYTUNE TO WORK YOU MUST PROVIDE AN ABSOLUTE PATH TO THE DATA HERE
-    # ex.  rel_path = "/home/$USER/RBMsForAptamers/
+    # ex.  data_path = "/home/$USER/RBMsForAptamers/data/"
+    #      helper_path = "/home/$USER/RBMsForAptamers/DNN_helper_files/"
 
+    if round in [5, 6, 7, 8]:
+        fasta_file = "s100_" + str(round) + "th.fasta"
+        seqs, affs = fasta_read(data_path + fasta_file, seq_read_counts=True, drop_duplicates=True)
+        seq_l = [s[:20] for s in seqs]
+        seq_r = [s[20:] for s in seqs]
+
+        seq_l, c_l = np.unique(seq_l, return_counts=True, axis=0)
+        seq_r, c_r = np.unique(seq_r, return_counts=True, axis=0)
+
+        c_ldict = dict(zip(seq_l, c_l))
+        c_rdict = dict(zip(seq_r, c_r))
+
+        count_l = [c_ldict[s] for s in seq_l]
+        count_r = [c_rdict[s] for s in seq_r]
+    else:
+        print(f"Round {round} not supported")
+        exit(1)
 
     if round in [5, 6, 7]:
-        fasta_file = "s100_" + str(round) + "th.fasta"
-        seqs, affs = fasta_read(rel_path + fasta_file, seq_read_counts=True, drop_duplicates=False)
-        tmpdata = list(zip(seqs, affs))
-        pruneddata = [(s, a) for (s, a) in tmpdata if len(s) == 40] # keep only seqs of length 40
-        pseqs, paffs = zip(*pruneddata)
-
-        seq_l = [s[0:20] for s in pseqs]
-        seq_r = [s[20:40] for s in pseqs]
-
-        if 'N' in type:  # normal unadjusted data
+        if 'C' in type:  # normal unadjusted data
             if 'L' in type:
-                data = pd.DataFrame({'sequence': seq_l, 'affinity': paffs})
+                data = pd.DataFrame({'sequence': seq_l, 'affinity': count_l})
             if 'R' in type:
-                data = pd.DataFrame({'sequence': seq_r, 'affinity': paffs})
+                data = pd.DataFrame({'sequence': seq_r, 'affinity': count_r})
             if 'B20' in type:
-                paffs = paffs + paffs  # double list, l and r have same affinity
-                data = pd.DataFrame({'sequence': seq_l + seq_r, 'affinity': paffs})
+                data = pd.DataFrame({'sequence': seq_l + seq_r, 'affinity': count_l + count_r})
             elif 'B' in type:
-                data = pd.DataFrame({'sequence': pseqs, 'affinity': paffs})
+                data = pd.DataFrame({'sequence': seqs, 'affinity': affs})
 
     elif round == 8:
-        tmp = pd.read_csv(rel_path+"round_8_nn.csv")
+        # Helper File
+        tmp = pd.read_csv(helper_path+"round_8_nn.csv")
+        nn_l = tmp["nn_l"].tolist()
+        nn_r = tmp["nn_l"].tolist()
 
         if "T" in type:
-            left = list(zip(tmp['seq_l'].tolist(), tmp['count_l'].tolist(), tmp['nn_l'].tolist()))
+            left = list(zip(seq_l, count_l, nn_l))
             newleft = [(s, c, nn) for (s, c, nn) in left if nn == 1]
             seq_l, count_l, nn_l = zip(*newleft)
 
-            right = list(zip(tmp['seq_r'].tolist(), tmp['count_r'].tolist(), tmp['nn_r'].tolist()))
+            right = list(zip(seq_r, count_r, nn_r))
             newright = [(s, c, nn) for (s, c, nn) in right if nn == 1]
             seq_r, count_r, nn_r = zip(*newright)
 
-    #abs_path = "./data/"  # local mac
-    # type is arbitrary designator to load the data as we feel necessary
+         # type is arbitrary designator to load the data as we feel necessary
         if 'H' in type: # marco adjusted w/ hamming distances to remove those freeloader strands
             if 'C' in type:
                 if 'L' in type:
@@ -254,9 +265,10 @@ def get_rawdata(type, countcutoff, n_copies, round=8, outputnum=2, seed=69):
                 if 'B20' in type:
                     data = pd.DataFrame({'sequence': seq_l + seq_r, 'affinity': count_l + count_r})
                 elif 'B' in type:
-                    data = pd.DataFrame({'sequence': pseqs, 'affinity': paffs})
+                    data = pd.DataFrame({'sequence': seqs, 'affinity': affs})
 
     data.drop_duplicates(inplace=True, keep='first')
+    data.reset_index(drop=True)
 
     train, validate = train_test_split(data, random_state=seed)
     _train = train.copy()
@@ -278,7 +290,7 @@ def get_rawdata(type, countcutoff, n_copies, round=8, outputnum=2, seed=69):
 
 
     if 'G' in type:
-        gen_seqs = pd.read_csv('fake_sequences.csv')
+        gen_seqs = pd.read_csv(helper_path+'fake_sequences.csv')
         nbinders = gen_seqs.sample(n=binders.sum()*n_copies, replace=False, random_state=seed)
 
     _train = pd.concat([_binders, nbinders]).reset_index(drop=True)

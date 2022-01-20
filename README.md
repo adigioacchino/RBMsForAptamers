@@ -11,9 +11,8 @@ For the notebooks to work, the 5 data files must be placed into a `data` folder,
 In particular:
 - files `s100_Nth.fasta` (where `N` is 5, 6, 7 or 8) are standard fasta files, and the descriptor of each sequence is of the form `seqX-Y`, where `X` is an increasing label, and `Y` is the number of times `seqX` has been obtained (number of counts of `seqX`).
 - file `Aptamer_Exp_Results.csv` contains the sequences tested experimentally, with all the experimental results for each sequence.
-- file `round_8_nn.csv` contains individual loop sequences, counts, and hamming distances for every sequence from 's100_8th.fasta'
-- file `fake_sequences.csv` contains 100,000 randomly generated sequences not seen in 's100_8th.fasta'
-### Please note: **Raytune DOES NOT support relative paths to data files. To enable ray tune optimization, Line 207 of `MLmodels.py' (in DNN_Models directory)must be changed to the absolute path to the data folder.**
+
+### Please note: **Raytune DOES NOT support relative paths to data files. To enable ray tune optimization (for DNN models only), Line 207 and Line 208 of `MLmodels.py' (in DNN_Models directory) must be changed to the absolute paths to the data folder and DNN_helper_files folder.**
 
 
 ## Dependencies:
@@ -45,7 +44,8 @@ The folder `DNA_utils` contains 3 python packages with useful scripts to run the
         
         Our dataset is represented by a 4-7 character string which is passed to our get_rawdata function in `MLModels.py`
         **Raytune DOES NOT support relative paths to data files. At least not that I've figured out. To enable ray tune, Line 207 of `MLmodels.py' 
-        must be changed to the absolute path to the data files.**
+        must be changed to the absolute path to the data directory. Line 208 of `MLmodels.py` must be changed to the absolute path to the 
+        DNN_helper_files folder.**
         
              The six datasets (all from the 8th round) used in this work were:
                 HCLT, HCRT, HCB20T, HCGLT, HCGRT, HCGB20T
@@ -57,6 +57,11 @@ The folder `DNA_utils` contains 3 python packages with useful scripts to run the
 `exmachina.yml` - a yml file for creating an anaconda environment with the necessary dependencies for running models in the DNN_Models and Trad_Models directories
 `MLmodels.py` - contains many universal functions/modules used by the individual pytorch lightning scripts.
 `result_collector.py` - contains functions for prediction and figure creation for all models in the DNN directory
+
+### The directory `DNN_helper_files` contains:
+
+`fakesequences.csv` - Randomly generated sequences used as bad binders for DNN training if "G" is in the dataset string
+`round_8_nn.csv` - Hamming Distance of nearest neighbor sequence, used to remove "passenger" strands by including "T" in the dataset string.
 
 ### The directory `Trad_Models` includes:
 

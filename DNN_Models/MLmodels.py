@@ -204,14 +204,16 @@ def get_rawdata(type, countcutoff, n_copies, round=8, outputnum=2, seed=69):
     '''
 
     # path to data, this works for pytorch lightning loops, but not for raytune
-    rel_path = "../data/"
+    data_path = "../data/"
+    helper_path = "../DNN_helper_files/"
 
     # FOR RAYTUNE TO WORK YOU MUST PROVIDE AN ABSOLUTE PATH TO THE DATA HERE
-    # ex.  rel_path = "/home/$USER/RBMsForAptamers/
+    # ex.  data_path = "/home/$USER/RBMsForAptamers/data/"
+    #      helper_path = "/home/$USER/RBMsForAptamers/DNN_helper_files/"
 
     if round in [5, 6, 7, 8]:
         fasta_file = "s100_" + str(round) + "th.fasta"
-        seqs, affs = fasta_read(rel_path + fasta_file, seq_read_counts=True, drop_duplicates=True)
+        seqs, affs = fasta_read(data_path + fasta_file, seq_read_counts=True, drop_duplicates=True)
         seq_l = [s[:20] for s in seqs]
         seq_r = [s[20:] for s in seqs]
 
@@ -240,7 +242,7 @@ def get_rawdata(type, countcutoff, n_copies, round=8, outputnum=2, seed=69):
 
     elif round == 8:
         # Helper File
-        tmp = pd.read_csv(rel_path+"round_8_nn.csv")
+        tmp = pd.read_csv(helper_path+"round_8_nn.csv")
         nn_l = tmp["nn_l"].tolist()
         nn_r = tmp["nn_l"].tolist()
 
@@ -288,7 +290,7 @@ def get_rawdata(type, countcutoff, n_copies, round=8, outputnum=2, seed=69):
 
 
     if 'G' in type:
-        gen_seqs = pd.read_csv(rel_path+'fake_sequences.csv')
+        gen_seqs = pd.read_csv(helper_path+'fake_sequences.csv')
         nbinders = gen_seqs.sample(n=binders.sum()*n_copies, replace=False, random_state=seed)
 
     _train = pd.concat([_binders, nbinders]).reset_index(drop=True)
