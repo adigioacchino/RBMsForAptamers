@@ -9,3 +9,6 @@ RBM_retrained
 
 # folder where PGM is cloned by default
 PGM
+
+# pycache for DNA_utils folder
+DNA_utils/__pycache__
