@@ -640,7 +640,7 @@ if __name__ == "__main__":
 
     # pytorch lightning loop
     # sn = SiameseClassifier(con, outputs=2)
-    # plt = pl.Trainer(max_epochs=1)
+    # plt = pl.Trainer(max_epochs=1, gpus=1)
     # plt.fit(sn)
 
 
