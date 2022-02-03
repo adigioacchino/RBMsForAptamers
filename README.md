@@ -22,14 +22,14 @@ The code to instantiate, train and use Restricted Boltzmann Machines exploits th
 To use the code for the DNN models or other traditional machine learning models, a yml file `exmachina.yml` is included in directory DNN_Models that will allow one to build an anaconda env to run the code.
 ## Repository structure:
 The notebooks to make the figures are in the main directory:
-- `fitness.ipynb` can be used to reproduce Fig. 2 of the paper.
+- `fitness.ipynb` can be used to reproduce Fig. 2 and Suppl. Fig. S16 of the paper.
 - `double_interpretation.ipynb` can be use to reproduce Fig. 3 of the paper; moreover, it can be used also to inspect any weight of RBM-D8, and to reproduce Suppl. Fig. S17a.
-- `discriminator.ipynb` can  be used to reproduce Fig. 4 and Suppl. Fig. S16 of the paper.
+- `discriminator.ipynb` can  be used to reproduce Fig. 4 and Suppl. Fig. S18 of the paper.
 - `single_interpretation.ipynb` can be used to reproduce Fig. 6 and Suppl. Fig. S17b of the paper.
 - `discriminator_withcounts.ipynb` can  be used to reproduce Suppl. Fig. S8 of the paper.
 
 The folder `RBM_retrained` contains the pre-trained RBMs used to do the figures of the paper.
-The folder `RBM_training` contains a notebook, `RBMs_training.ipynb` that can be used to re-train any of the RBM used for the paper, and to produce Suppl. Fig. 18 of the paper.
+The folder `RBM_training` contains a notebook, `RBMs_training.ipynb` that can be used to re-train any of the RBM used for the paper, and to produce Suppl. Fig. 19 of the paper.
 The folder `DNA_utils` contains 3 python packages with useful scripts to run the other notebooks (for instance, to load our DNA datasets in a format which is compatible with the RBM package).
 
 ### The directory `DNN_Models` contains:
