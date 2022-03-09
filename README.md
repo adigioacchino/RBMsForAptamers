@@ -7,9 +7,7 @@ This repository also contains the DNN and traditional ML models used for compari
 Finally, this repository contains the code used to infer the sequencing errors, discussed in the Supplementary Section S2 of the paper.
 
 ## Data:
-The data used (described in the paper) has been uploaded to Zenodo, with DOI: (the DOI will be added as soon as the data will be public on Zenodo).
-
-*The data used is (temporarily) dowloadable from [here](https://web.cubbit.io/link/#a3ba49a1-3ecc-46cc-a61d-aa7e96bf6a05) in compressed format. In future it will be provided through [Zenodo](https://zenodo.org/).*
+The data used (described in the paper) has been uploaded to Zenodo, with DOI: 10.5281/zenodo.6341687.
 
 For the notebooks to work, the 5 data files must be placed into a `data` folder, which must be created inside the main directory of this repository.
 In particular:
