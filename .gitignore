@@ -6,7 +6,7 @@ RBM_trainung/.ipynb_checkpoints
 data
 
 # folder where re-trained RBMs are saved by default
-RBM_retrained
+RBM_training/RBM_retrained
 
 # folder where PGM is cloned by default
 PGM
