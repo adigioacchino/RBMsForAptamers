@@ -7,10 +7,14 @@ This repository also contains the DNN and traditional ML models used for compari
 Finally, this repository contains the code used to infer the sequencing errors, discussed in the Supplementary Section S2 of the paper.
 
 ## Data:
-The data used (described in the paper) has been uploaded to Zenodo, with DOI: 10.5281/zenodo.6341687.
-
-For the notebooks to work, the 5 data files must be placed into a `data` folder, which must be created inside the main directory of this repository.
-In particular:
+The data used (described in the paper) has been uploaded to Zenodo, with DOI: 10.5281/zenodo.6341687. 
+It can be downloaded and decompressed with the commands 
+```
+wget https://zenodo.org/record/6341687/files/selex_and_assays_data.tar.gz
+tar xf selex_and_assays_data.tar.gz 
+```
+For the notebooks to work, the uncompressed `data` folder must be in the main directory of this repository.
+The file contained in the `data` folder are:
 - files `s100_Nth.fasta` (where `N` is 5, 6, 7 or 8) are standard fasta files, and the descriptor of each sequence is of the form `seqX-Y`, where `X` is an increasing label, and `Y` is the number of times `seqX` has been obtained (number of counts of `seqX`).
 - file `Aptamer_Exp_Results.csv` contains the sequences tested experimentally, with all the experimental results for each sequence.
 
