@@ -1,6 +1,6 @@
 # Interpretable machine learning model for DNA aptamer design and analysis
 
-This repository allows to reproduce most figures in this paper (the paper will be linked as soon as it is available in preprint servers, and the link will be updated as soon as it will be published in a peer-reviewed journal).
+This repository allows to reproduce most figures in this [paper](https://www.biorxiv.org/content/10.1101/2022.03.12.484094v1).
 
 This repository also contains the DNN and traditional ML models used for comparison with the RBM. No explicit script to generate the DNN or trad ML model figures is included.
 
@@ -56,6 +56,13 @@ The folder `DNN_analysis` contains the following subfolders, used to train Deep 
 - the directory `DNN_helper_files`, which contains the following files: `fakesequences.csv` - Randomly generated sequences used as bad binders for DNN training if "G" is in the dataset string; `round_8_nn.csv` - Hamming Distance of nearest neighbor sequence, used to remove "passenger" strands by including "T" in the dataset string.
 
 - the directory `Trad_Models`, which contains the following files: `HCT_forest.ipynb`, `HCGT_forest.ipynb` - Jupyter Notebooks for single decision tree, random forest, and gradient boosted classification tree on each of the six datasets used in the paper; `MLmodels.py` - an exact copy of the one in DNN_Models, only included for the data import functions.
+
+## How to cite this software:
+If you  use this software for an academic publication, please cite the
+[preprint](https://www.biorxiv.org/content/10.1101/2022.03.12.484094v1) that describes it:
+
+> Di Gioacchino, A., Procyk, J., et al. "Generative and interpretable machine learning for aptamer design and analysis of in vitro sequence selection."
+  bioRxiv (2022).
 
 ## Contacts:
 For comments or questions on the RBM training and associated figures, feel free to [contact Andrea](mailto:andrea.dgioacchino@gmail.com).
